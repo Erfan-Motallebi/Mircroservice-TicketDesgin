@@ -1,0 +1,20 @@
+apiVersion: skaffold/v2beta25
+kind: Config
+metadata:
+  name: ticket-skaffold
+deploy:
+  kubectl:
+    manifests:
+      - "./infra/k8s/*"
+build:
+  local:
+    push: false
+  artifacts:
+    - image: erfanrider/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: "src/**/*.ts"
