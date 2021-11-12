@@ -1,3 +1,4 @@
+import { errorHandler } from "./middlewares/errorHandler";
 import express, { Express, Request, Response } from "express";
 
 // ! Auth Routers [ User ]
@@ -17,6 +18,9 @@ app.use(signUpRouter);
 app.use(signInRouter);
 app.use(signOutRrouter);
 app.use(currentUserRouter);
+
+// Error Handing
+app.use(errorHandler);
 
 app.listen(PORT, HOSTNAME, () => {
   console.log(`Auth Service is running on - http://${HOSTNAME}:${PORT} - `);
