@@ -1,6 +1,6 @@
 import { errorHandler } from "./middlewares/errorHandler";
-import express, { Express, Request, Response } from "express";
-
+import express, { Express, NextFunction, Request, Response } from "express";
+import "express-async-errors";
 // ! Auth Routers [ User ]
 import { currentUserRouter } from "./routes/authRouter/currentUser";
 import { signInRouter } from "./routes/authRouter/signin";
@@ -21,7 +21,7 @@ app.use(signOutRrouter);
 app.use(currentUserRouter);
 
 // Error Handing
-app.all("*", (req: Request, res: Response) => {
+app.all("*", async (req: Request, res: Response) => {
   throw new NotFoundError();
 });
 app.use(errorHandler);
