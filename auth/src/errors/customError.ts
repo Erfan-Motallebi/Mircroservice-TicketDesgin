@@ -1,14 +1,14 @@
-export class CustomError extends Error {
-  statusCode = 404;
+type ErrorType = {
+  message: string;
+  field?: string;
+}[];
+
+export abstract class CustomError extends Error {
+  abstract statusCode: number;
   constructor() {
     super();
+
     Object.setPrototypeOf(this, CustomError.prototype);
   }
-  serializeError() {
-    return [
-      {
-        message: this.message,
-      },
-    ];
-  }
+  abstract serializeError(): ErrorType;
 }
