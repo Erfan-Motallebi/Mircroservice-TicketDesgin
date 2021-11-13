@@ -33,7 +33,7 @@ router.post(
       throw new RequestValidationError(errors.array());
     }
     // Testing DatabaseErrorConnection
-    throw new DatabaseConnectionError();
+    // throw new DatabaseConnectionError();
     console.log("Creating a user");
     res.status(200).json({ situation: { msg: "signing up" } });
   }
