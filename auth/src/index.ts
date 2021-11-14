@@ -7,7 +7,7 @@ import { currentUserRouter } from "./routes/authRouter/currentUser";
 import { signInRouter } from "./routes/authRouter/signin";
 import { signOutRrouter } from "./routes/authRouter/signout";
 import { signUpRouter } from "./routes/authRouter/signup";
-import { NotFoundError } from "./errors/notFoundError";
+import { NotFoundError } from "./errors/NotFoundError";
 
 const app: Express = express();
 const PORT = (process.env.PORT || 3000) as number;

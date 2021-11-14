@@ -1,8 +1,10 @@
+import { UserDocument } from "./../../models/user.model";
 import { Router, Express, Response, Request } from "express";
 import { body, validationResult } from "express-validator";
-import { DatabaseConnectionError } from "../../errors/databaseConnectionError";
-("../../errors/databaseConnectionError");
-import { RequestValidationError } from "../../errors/requestValidationError";
+import { BadRequestError } from "../../errors/BadRequestError";
+import { RequestValidationError } from "../../errors/RequestValidationError";
+import { User } from "../../models/user.model";
+import { FilterQuery } from "mongoose";
 
 const router: Router = Router();
 
@@ -23,19 +25,26 @@ router.post(
       .isLength({ min: 4, max: 15 })
       .withMessage("Password length is 4 - 12 characters"),
   ],
-  (req: Request, res: Response) => {
+  async (req: Request, res: Response) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      // return res.status(404).json({ errors: errors.array() });
-      // const error = new Error("Email or Password was not correct.");
-      // error["reason"] = errors.array();
-
       throw new RequestValidationError(errors.array());
     }
-    // Testing DatabaseErrorConnection
-    // throw new DatabaseConnectionError();
-    console.log("Creating a user");
-    res.status(200).json({ situation: { msg: "signing up" } });
+
+    const { email, password } = req.body;
+    const existingUser = await User.findOne({
+      email,
+    } as FilterQuery<UserDocument>);
+    if (existingUser) {
+      throw new BadRequestError("Email in use");
+    }
+
+    const user = User.build({
+      email,
+      password,
+    });
+    await user.save();
+    res.status(201).json(user);
   }
 );
 

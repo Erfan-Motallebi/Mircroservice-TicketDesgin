@@ -1,5 +1,5 @@
 import { model, Schema, Model, Document } from "mongoose";
-
+import { Password } from "../service/Password";
 /**
  * @interface UserAttr
  * @description It helps the User Model in the moment of being createed
@@ -24,7 +24,7 @@ interface UserModel extends Model<UserDocument> {
  * @description It helps the document of the user to work more efficiently
  */
 
-interface UserDocument extends Document {
+export interface UserDocument extends Document {
   email: string;
   password: string;
   createdAt: string;
@@ -50,5 +50,14 @@ const User = model<UserDocument, UserModel>("User", userSchema);
 userSchema.statics.build = (attrs: UserAttr) => {
   return new User(attrs);
 };
+
+userSchema.pre("save", async function (next) {
+  const self = this as UserDocument;
+  if (self.isModified("password")) {
+    const hashedPassword = await Password.toHash(self.get("password"));
+    self.set("password", hashedPassword);
+  }
+  next();
+});
 
 export { User };

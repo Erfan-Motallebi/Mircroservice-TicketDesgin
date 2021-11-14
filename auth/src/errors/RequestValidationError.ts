@@ -1,5 +1,5 @@
 import { ValidationError } from "express-validator";
-import { CustomError } from "./customError";
+import { CustomError } from "./CustomError";
 
 // export type ErrorType = {
 //   message: string,
