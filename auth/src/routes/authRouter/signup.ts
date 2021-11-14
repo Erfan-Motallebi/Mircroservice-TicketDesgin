@@ -1,10 +1,8 @@
-import { UserDocument } from "./../../models/user.model";
-import { Router, Express, Response, Request } from "express";
+import { Router, Response, Request } from "express";
 import { body, validationResult } from "express-validator";
 import { BadRequestError } from "../../errors/BadRequestError";
 import { RequestValidationError } from "../../errors/RequestValidationError";
 import { User } from "../../models/user.model";
-import { FilterQuery } from "mongoose";
 
 const router: Router = Router();
 
@@ -14,15 +12,16 @@ router.post(
     body("email")
       .not()
       .isEmpty()
+      .withMessage("Email Field is empty. fill it please")
       .trim()
       .isEmail()
       .normalizeEmail()
       .withMessage("Email is not valid. "),
     body("password")
-      .not()
-      .isEmpty()
+      .notEmpty()
+      .withMessage("Password Field is empty. fill it please")
       .trim()
-      .isLength({ min: 4, max: 15 })
+      .isLength({ min: 4, max: 12 })
       .withMessage("Password length is 4 - 12 characters"),
   ],
   async (req: Request, res: Response) => {
@@ -32,9 +31,11 @@ router.post(
     }
 
     const { email, password } = req.body;
+
     const existingUser = await User.findOne({
       email,
-    } as FilterQuery<UserDocument>);
+    });
+
     if (existingUser) {
       throw new BadRequestError("Email in use");
     }
@@ -43,6 +44,7 @@ router.post(
       email,
       password,
     });
+
     await user.save();
     res.status(201).json(user);
   }

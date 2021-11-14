@@ -1,11 +1,11 @@
 import { model, Schema, Model, Document } from "mongoose";
 import { Password } from "../service/Password";
 /**
- * @interface UserAttr
+ * @interface UserAttrs
  * @description It helps the User Model in the moment of being createed
  */
 
-interface UserAttr {
+interface IUserAttrs {
   email: string;
   password: string;
 }
@@ -15,8 +15,8 @@ interface UserAttr {
  * @description It helps the method of the user being detective on its own model
  */
 
-interface UserModel extends Model<UserDocument> {
-  build(attrs: UserAttr): UserDocument;
+interface IUserModel extends Model<IUserDocument> {
+  build(attrs: IUserAttrs): IUserDocument;
 }
 
 /**
@@ -24,7 +24,7 @@ interface UserModel extends Model<UserDocument> {
  * @description It helps the document of the user to work more efficiently
  */
 
-export interface UserDocument extends Document {
+export interface IUserDocument extends Document {
   email: string;
   password: string;
   createdAt: string;
@@ -45,19 +45,23 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-const User = model<UserDocument, UserModel>("User", userSchema);
+const User = model<IUserDocument, IUserModel>("User", userSchema);
 
-userSchema.statics.build = (attrs: UserAttr) => {
+userSchema.statics.build = function (attrs: IUserAttrs) {
   return new User(attrs);
 };
 
-userSchema.pre("save", async function (next) {
-  const self = this as UserDocument;
-  if (self.isModified("password")) {
-    const hashedPassword = await Password.toHash(self.get("password"));
-    self.set("password", hashedPassword);
+userSchema.pre(
+  "save",
+  async function (this: IUserDocument, next): Promise<void> {
+    console.log("Saving . . . ");
+    // const self = this as UserDocument;
+    if (this.isModified("password")) {
+      const hashedPassword = await Password.toHash(this.get("password"));
+      this.set("password", hashedPassword);
+    }
+    next();
   }
-  next();
-});
+);
 
 export { User };

@@ -22,7 +22,7 @@ app.use(signOutRrouter);
 app.use(currentUserRouter);
 
 // Error Handing
-app.all("*", async (req: Request, res: Response) => {
+app.use(async (req: Request, res: Response) => {
   throw new NotFoundError();
 });
 app.use(errorHandler);
@@ -31,10 +31,8 @@ app.use(errorHandler);
 const startApp = async () => {
   try {
     await mongoose.connect("mongodb://auth-mongo-srv-cluster:27017", {
-      autoIndex: true,
       dbName: "auth",
-      family: 4,
-      serverSelectionTimeoutMS: 10000,
+      autoIndex: true,
     });
     console.log("⚒️   [ + ]  Database Connected ");
   } catch (error) {
