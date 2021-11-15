@@ -47,9 +47,15 @@ const userSchema = new Schema(
 
 const User = model<IUserDocument, IUserModel>("User", userSchema);
 
-userSchema.statics.build = function (attrs: IUserAttrs) {
+/**
+ * @function build
+ * @param {email: string, password: string}
+ * @returns IUserDocument
+ */
+
+userSchema.static("build", function (attrs: IUserAttrs) {
   return new User(attrs);
-};
+});
 
 userSchema.pre(
   "save",

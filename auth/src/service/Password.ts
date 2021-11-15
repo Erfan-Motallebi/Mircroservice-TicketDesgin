@@ -11,7 +11,7 @@ export class Password {
       salt,
       64
     )) as Buffer;
-    return `${crypticPassword}.${salt}`;
+    return `${crypticPassword.toString("hex")}.${salt}`;
   }
 
   static async compare(

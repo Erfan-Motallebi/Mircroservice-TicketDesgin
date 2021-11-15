@@ -8,13 +8,22 @@ import { signInRouter } from "./routes/authRouter/signin";
 import { signOutRrouter } from "./routes/authRouter/signout";
 import { signUpRouter } from "./routes/authRouter/signup";
 import { NotFoundError } from "./errors/NotFoundError";
+import cookieSession from "cookie-session";
 
-const app: Express = express();
 const PORT = (process.env.PORT || 3000) as number;
 const HOSTNAME = (process.env.HOSTNAME || "localhost") as string;
 
+const app: Express = express();
+app.set("trust proxy", true);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(
+  cookieSession({
+    signed: false,
+    secure: true,
+  })
+);
 
 app.use(signUpRouter);
 app.use(signInRouter);
