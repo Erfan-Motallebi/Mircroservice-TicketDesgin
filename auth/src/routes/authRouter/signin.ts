@@ -1,6 +1,10 @@
+import { Password } from "./../../service/Password";
 import { Router, Response, Request } from "express";
 import { check } from "express-validator";
+import { BadRequestError } from "../../errors/BadRequestError";
 import { requestValidator } from "../../middlewares/requestValidator";
+import JWT from "jsonwebtoken";
+import { User } from "../../models/user.model";
 const router: Router = Router();
 
 router.post(
@@ -22,7 +26,31 @@ router.post(
   ],
   requestValidator,
   async (req: Request, res: Response) => {
-    res.status(200).json({ greeting: { msg: "signing in" } });
+    const { email, password } = req.body;
+
+    const existingUser = await User.findOne({ email: { $eq: email } });
+    if (!existingUser) {
+      throw new BadRequestError("User not found !");
+    }
+
+    const isMatchedPassword = await Password.compare(
+      existingUser.password,
+      password
+    );
+    if (!isMatchedPassword) {
+      throw new BadRequestError("Password not match. please try again.");
+    }
+
+    // Generate JWT
+    const userToken = JWT.sign(
+      { id: existingUser.id, email: existingUser.email },
+      process.env.JWT_KEY!
+    );
+
+    // Store in the req.session
+    req.session = { jwt: userToken };
+
+    res.status(200).json(existingUser);
   }
 );
 

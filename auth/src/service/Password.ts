@@ -24,7 +24,7 @@ export class Password {
       salt,
       64
     )) as Buffer;
-    return oldCrypticPassword === newCrypticPassword.toString("hex")
+    return crypticPassword === newCrypticPassword.toString("hex")
       ? true
       : false;
   }
