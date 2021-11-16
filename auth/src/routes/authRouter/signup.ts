@@ -23,8 +23,8 @@ router.post(
       .notEmpty()
       .withMessage("Password Field is empty. fill it please")
       .trim()
-      .isLength({ min: 4, max: 12 })
-      .withMessage("Password length is 4 - 12 characters"),
+      .isLength({ min: 4, max: 20 })
+      .withMessage("Password length is 4 - 20 characters"),
   ],
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
