@@ -1,6 +1,6 @@
 import { Router, Response, Request } from "express";
-import { check, validationResult } from "express-validator";
-import { RequestValidationError } from "../../errors/RequestValidationError";
+import { check } from "express-validator";
+import { requestValidator } from "../../middlewares/requestValidator";
 const router: Router = Router();
 
 router.post(
@@ -20,11 +20,8 @@ router.post(
       .isLength({ min: 4, max: 20 })
       .withMessage("Password length is 4 - 20 characters"),
   ],
+  requestValidator,
   async (req: Request, res: Response) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      throw new RequestValidationError(errors.array());
-    }
     res.status(200).json({ greeting: { msg: "signing in" } });
   }
 );
