@@ -41,17 +41,23 @@ router.post(
     if (existingUser) {
       throw new BadRequestError("Email in use");
     }
-    // // Library Approach
+    // Library Approach
     // const user = User.build({ email, password });
     // await user.save();
 
-    // Sync Approach
+    //#region Sync Approach
+
     const hashedPassword = await Password.toHash(password);
     const user = new User({ email, password: hashedPassword });
     await user.save();
 
+    //#endregion
+
     // Generate JWT
-    const userToken = JWT.sign({ id: user.id, email: user.email }, "abcdef");
+    const userToken = JWT.sign(
+      { id: user.id, email: user.email },
+      process.env.JWT_KEY!
+    );
 
     // Store in the req.session
     req.session = { jwt: userToken };

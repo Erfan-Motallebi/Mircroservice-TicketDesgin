@@ -22,6 +22,7 @@ app.use(
   cookieSession({
     signed: false,
     secure: true,
+    name: "Micro-Kubect",
   })
 );
 
@@ -38,6 +39,10 @@ app.use(errorHandler);
 
 // MongoDB and Listening Port
 const startApp = async () => {
+  // Checking JWT Secret Key for deployment
+  if (!process.env.JWT_KEY) {
+    throw new Error("JWT Token was not assigned to the Pod.");
+  }
   try {
     await mongoose.connect("mongodb://auth-mongo-srv-cluster:27017", {
       dbName: "auth",
