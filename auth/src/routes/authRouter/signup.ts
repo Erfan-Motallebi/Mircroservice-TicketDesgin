@@ -55,9 +55,10 @@ router.post(
       process.env.JWT_KEY!
     );
 
-    // Store in the req.session
-    req.session = { jwt: userToken };
-
+    // Store in the req.session [Cookie on the browser-side]
+    req.session = {
+      jwt: userToken,
+    };
     res.status(201).json(user);
   }
 );

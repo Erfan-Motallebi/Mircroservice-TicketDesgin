@@ -30,7 +30,7 @@ router.post(
 
     const existingUser = await User.findOne({ email: { $eq: email } });
     if (!existingUser) {
-      throw new BadRequestError("User not found !");
+      throw new BadRequestError("Invalid Credentials");
     }
 
     const isMatchedPassword = await Password.compare(
