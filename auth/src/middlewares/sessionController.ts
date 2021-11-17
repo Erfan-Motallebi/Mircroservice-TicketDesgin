@@ -29,7 +29,7 @@ export const sessionController = (
     ) as IJwtPayload;
     req.currentUser = authenticatedUser;
   } catch (error) {
-    console.error(error);
+    res.status(404).json({ currentUser: null });
   }
   next();
 };

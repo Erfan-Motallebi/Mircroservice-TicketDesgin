@@ -1,6 +1,5 @@
 import { Router, Response, Request } from "express";
 import { sessionController } from "../../middlewares/sessionController";
-import JWT from "jsonwebtoken";
 import { authHandler } from "../../middlewares/authHandler";
 
 const router: Router = Router();
