@@ -4,7 +4,10 @@ WORKDIR /app
 
 COPY package.json ./
 
-RUN npm install
+# To remove the devDependencies from being pulled to the Kubernetes Cluster
+RUN npm install --only=production
+
+# RUN npm install
 
 COPY ./ ./
 
