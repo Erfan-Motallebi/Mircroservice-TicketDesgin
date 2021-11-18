@@ -5,6 +5,7 @@ import { BadRequestError } from "../../errors/BadRequestError";
 import { requestValidator } from "../../middlewares/requestValidator";
 import JWT from "jsonwebtoken";
 import { User } from "../../models/user.model";
+
 const router: Router = Router();
 
 router.post(

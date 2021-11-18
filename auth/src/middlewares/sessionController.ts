@@ -24,7 +24,7 @@ export const sessionController = (
   }
   try {
     const authenticatedUser = JWT.verify(
-      req.session!.jwt,
+      req.session.jwt,
       process.env.JWT_KEY!
     ) as IJwtPayload;
     req.currentUser = authenticatedUser;
