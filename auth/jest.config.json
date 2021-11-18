@@ -1,0 +1,11 @@
+{
+  "name": "Microservice-test",
+  "jest": {
+    "preset": "ts-jest",
+    "verbose": true,
+    "setupFilesAfterEnv": [
+      "./src/test/setup.ts"
+    ],
+    "testEnvironment": "node"
+  }
+}
