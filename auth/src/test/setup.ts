@@ -19,6 +19,6 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
-  mongoMS.stop();
+  await mongoMS.stop();
   await connection.close();
 });
