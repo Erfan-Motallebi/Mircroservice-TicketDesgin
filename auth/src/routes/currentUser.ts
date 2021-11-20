@@ -1,6 +1,6 @@
 import { Router, Response, Request } from "express";
-import { sessionController } from "../../middlewares/sessionController";
-import { authHandler } from "../../middlewares/authHandler";
+import { sessionController } from "../middlewares/sessionController";
+import { authHandler } from "../middlewares/authHandler";
 
 const router: Router = Router();
 

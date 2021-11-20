@@ -1,10 +1,10 @@
 import { Router, Response, Request } from "express";
 import { body } from "express-validator";
-import { BadRequestError } from "../../errors/BadRequestError";
-import { User } from "../../models/user.model";
-import { Password } from "../../service/Password";
+import { BadRequestError } from "../errors/BadRequestError";
+import { User } from "../models/user.model";
+import { Password } from "../service/Password";
 import JWT from "jsonwebtoken";
-import { requestValidator } from "../../middlewares/requestValidator";
+import { requestValidator } from "../middlewares/requestValidator";
 
 const router: Router = Router();
 
