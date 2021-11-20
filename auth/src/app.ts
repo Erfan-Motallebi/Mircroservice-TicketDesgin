@@ -1,14 +1,14 @@
 import { errorHandler } from "./middlewares/errorHandler";
-import express, { Express, NextFunction, Request, Response } from "express";
+import express, { Express, Request, Response } from "express";
 import "express-async-errors";
 
 // ! Auth Routers [ User ]
 import { currentUserRouter } from "./routes/currentUser";
 import { signInRouter } from "./routes/signin";
-import { signOutRrouter } from "./routes/signout";
 import { signUpRouter } from "./routes/signup";
 import { NotFoundError } from "./errors/NotFoundError";
 import cookieSession from "cookie-session";
+import {signOutRouter} from "./routes/signout";
 
 const app: Express = express();
 app.set("trust proxy", 1);
@@ -26,7 +26,7 @@ app.use(
 
 app.use(signUpRouter);
 app.use(signInRouter);
-app.use(signOutRrouter);
+app.use(signOutRouter);
 app.use(currentUserRouter);
 
 // Error Handing
