@@ -1,5 +1,15 @@
+import request from "supertest";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import { connect, connection } from "mongoose";
+import { app } from "../app";
+
+declare global {
+  namespace NodeJS {
+    interface Global {
+      getCookie(): Promise<string[]>;
+    }
+  }
+}
 
 let mongoMS: MongoMemoryServer;
 
@@ -22,4 +32,15 @@ beforeEach(async () => {
 afterAll(async () => {
   await mongoMS.stop();
   await connection.close();
-});
+}, 35000);
+
+// global.getCookie = async () => {
+//   const email = "test@gmail.com";
+//   const password = "test123";
+//   const response = await request(app)
+//     .post("/apit/users/signup")
+//     .send({ email, password })
+//     .expect(201);
+//   const cookie = response.get("Set-Cookie");
+//   return cookie;
+// };

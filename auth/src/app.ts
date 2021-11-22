@@ -8,7 +8,7 @@ import { signInRouter } from "./routes/signin";
 import { signUpRouter } from "./routes/signup";
 import { NotFoundError } from "./errors/NotFoundError";
 import cookieSession from "cookie-session";
-import {signOutRouter} from "./routes/signout";
+import { signOutRouter } from "./routes/signout";
 
 const app: Express = express();
 app.set("trust proxy", 1);
@@ -19,7 +19,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(
   cookieSession({
     signed: false,
-    secure: true,
+    // secure: true,
+    // ! Test Approaches
+    secure: process.env.NODE_ENV !== "test",
     name: "Micro-Kubect",
   })
 );
