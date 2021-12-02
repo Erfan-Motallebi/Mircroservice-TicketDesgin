@@ -34,13 +34,13 @@ afterAll(async () => {
   await connection.close();
 }, 35000);
 
-// global.getCookie = async () => {
-//   const email = "test@gmail.com";
-//   const password = "test123";
-//   const response = await request(app)
-//     .post("/apit/users/signup")
-//     .send({ email, password })
-//     .expect(201);
-//   const cookie = response.get("Set-Cookie");
-//   return cookie;
-// };
+global.getCookie = async () => {
+  const email = "test@gmail.com";
+  const password = "test123";
+  const response = await request(app)
+    .post("/apit/users/signup")
+    .send({ email, password })
+    .expect(201);
+  const cookie = response.get("Set-Cookie");
+  return cookie;
+};

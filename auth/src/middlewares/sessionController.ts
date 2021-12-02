@@ -13,7 +13,6 @@ declare global {
     }
   }
 }
-
 export const sessionController = (
   req: Request,
   res: Response,
