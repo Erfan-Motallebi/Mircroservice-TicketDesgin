@@ -1,6 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
-import useRequest from "../../components/hook/useRequest";
+import useRequest from "../../hooks/use-request";
 
 export default function singUp() {
   const [email, setEmail] = useState("");
