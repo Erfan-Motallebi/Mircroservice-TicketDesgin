@@ -1,26 +1,19 @@
 import { useState } from "react";
 import axios from "axios";
+import useRequest from "../../components/hook/useRequest";
 
 export default function singUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const { doRequest, errors } = useRequest({
+    url: "/api/users/signup",
+    method: "POST",
+    body: { email, password },
+  });
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
-    try {
-      await axios.request({
-        method: "POST",
-        url: "/api/users/signup",
-        body: {
-          email,
-          password,
-        },
-      });
-    } catch (err) {
-      setErrors(err.response.data.errors);
-    }
+    await doRequest();
   };
 
   return (
@@ -57,24 +50,7 @@ export default function singUp() {
           </div>
           <button className="btn btn-primary">Submit</button>
         </form>
-        {errors.length > 0 && (
-          <section className="alert alert-danger my-2 p-4 ">
-            <div>
-              <ul className="list-group list-group-vertical-lg">
-                {errors.map((err, index) => {
-                  return (
-                    <li
-                      className="list-group-item list-group-item-warning mb-2 p-2 "
-                      key={index}
-                    >
-                      {err.message}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </section>
-        )}
+        {errors}
       </div>
     </div>
   );
