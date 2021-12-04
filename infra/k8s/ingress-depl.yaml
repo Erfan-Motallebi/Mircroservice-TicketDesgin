@@ -10,10 +10,17 @@ spec:
     - host: ticketing.dev
       http:
         paths:
-          - pathType: Prefix
-            path: /api/users/?(.*)
+          - path: /api/users/?(.*)
+            pathType: Prefix
             backend:
               service:
                 name: auth-srv-cluster
+                port:
+                  number: 3001
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: client-srv-cluster
                 port:
                   number: 3000

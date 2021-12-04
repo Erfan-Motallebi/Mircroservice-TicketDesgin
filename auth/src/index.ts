@@ -1,7 +1,7 @@
 import { app } from "./app";
 import mongoose from "mongoose";
 
-const PORT = (process.env.PORT || 3000) as number;
+const PORT = (process.env.PORT || 3001) as number;
 const HOSTNAME = (process.env.HOSTNAME || "localhost") as string;
 
 // MongoDB and Listening Port
