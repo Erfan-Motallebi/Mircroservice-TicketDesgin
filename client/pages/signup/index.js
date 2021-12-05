@@ -1,17 +1,29 @@
 import { useState } from "react";
 import useRequest from "../../hooks/use-request";
+import { useRouter } from "next/router";
 
 export default function singUp() {
+  const Router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { doRequest, errors } = useRequest({
     url: "/api/users/signup",
     method: "POST",
     body: { email, password },
+    onSuccess: ({ response }) => {
+      console.log({ response });
+      return Router.push("/");
+    },
   });
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    // try {
+    //   await doRequest();
+    //   Router.push("/");
+    // } catch (error) {
+    //   console.error(error);
+    // }
     await doRequest();
   };
 
