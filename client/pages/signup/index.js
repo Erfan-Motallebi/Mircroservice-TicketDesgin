@@ -12,7 +12,7 @@ export default function singUp() {
     body: { email, password },
     onSuccess: ({ response }) => {
       console.log({ response });
-      return Router.push("/");
+      Router.push("/");
     },
   });
 

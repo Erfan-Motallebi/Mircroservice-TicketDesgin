@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default function Home({ data }) {
+function Home({ data }) {
   console.log({ data });
   return (
     <div>
@@ -9,12 +9,21 @@ export default function Home({ data }) {
   );
 }
 
-export async function getServerSideProps(ctx) {
-  const resp = await axios.get("/api/users/currentuser");
+// export async function getServerSideProps(ctx) {
+//   // const resp = await axios.get("/api/users/currentuser");
+//   console.log("GetServerSide Runs");
+//   return {};
+// }
 
-  return {
-    props: {
-      data: resp.data,
-    },
-  };
-}
+Home.getInitialProps = async () => {
+  let data;
+  // ? Checking whether we're inside a browser or server in order to make our base URL
+  if (typeof window !== "undefined") {
+    // Inside the browser - Base URL => ''
+    const resp = await axios.get("/api/users/currentuser");
+    data = resp.data;
+  }
+  return { data };
+};
+
+export default Home;
