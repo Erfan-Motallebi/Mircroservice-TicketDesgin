@@ -15,7 +15,7 @@ function Home({ data }) {
 //   return {};
 // }
 
-Home.getInitialProps = async () => {
+Home.getInitialProps = async ({ req }) => {
   let data;
   // ? Checking whether we're inside a browser or server in order to make our base URL
   if (typeof window !== "undefined") {
@@ -26,9 +26,7 @@ Home.getInitialProps = async () => {
     const resp = await axios.request({
       method: "GET",
       url: "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser",
-      headers: {
-        Host: "ticketing.dev",
-      },
+      headers: req.headers,
     });
     data = resp.data;
   }
