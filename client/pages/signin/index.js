@@ -2,7 +2,7 @@ import { useState } from "react";
 import useRequest from "../../hooks/use-request";
 import { useRouter } from "next/router";
 
-export default function signIn() {
+export default function SignIn() {
   const Router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -2,7 +2,7 @@ import { useState } from "react";
 import useRequest from "../../hooks/use-request";
 import { useRouter } from "next/router";
 
-export default function signUp() {
+export default function SignUp() {
   const Router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -69,3 +69,12 @@ export default function signUp() {
     </div>
   );
 }
+
+SignUp.getLayout = (page) => {
+  return (
+    <div>
+      <h1>Sign Up Header</h1>
+      {page}
+    </div>
+  );
+};
