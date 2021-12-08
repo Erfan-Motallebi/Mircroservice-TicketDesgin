@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default function buildClient(req) {
+export default function buildClient({ req }) {
   let client;
   if (typeof window === "undefined") {
     // Server-Side -> Kubernetes Cluster

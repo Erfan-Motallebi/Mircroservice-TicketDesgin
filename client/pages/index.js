@@ -19,9 +19,9 @@ export default Home;
 //       };
 // }
 
-Home.getInitialProps = async ({ req }) => {
-  const client = buildClient(req);
-  const data = await client.request({
+Home.getInitialProps = async (context) => {
+  const client = buildClient(context);
+  const { data } = await client.request({
     method: "GET",
     url: "/api/users/currentuser",
   });
