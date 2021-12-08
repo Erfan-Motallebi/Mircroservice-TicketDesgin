@@ -2,12 +2,12 @@ import { useState } from "react";
 import useRequest from "../../hooks/use-request";
 import { useRouter } from "next/router";
 
-export default function signUp() {
+export default function signIn() {
   const Router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { doRequest, errors } = useRequest({
-    url: "/api/users/signup",
+    url: "/api/users/signin",
     method: "POST",
     body: { email, password },
     onSuccess: ({ response }) => {
@@ -18,20 +18,14 @@ export default function signUp() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    // try {
-    //   await doRequest();
-    //   Router.push("/");
-    // } catch (error) {
-    //   console.error(error);
-    // }
     await doRequest();
   };
 
   return (
     <div>
       <div className="container mt-5">
-        <section className="mx-auto p-5 text-info">
-          <h1>Sign Up</h1>
+        <section className="mx-auto p-5 text-danger">
+          <h1>Sign In</h1>
         </section>
         <form onSubmit={submitHandler}>
           <div className="mb-3 row">
@@ -62,7 +56,7 @@ export default function signUp() {
               />
             </div>
           </div>
-          <button className="btn btn-primary">Sign Up</button>
+          <button className="btn btn-primary">Sign In</button>
         </form>
         {errors}
       </div>
