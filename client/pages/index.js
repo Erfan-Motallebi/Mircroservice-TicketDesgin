@@ -1,10 +1,9 @@
 import buildClient from "../helpers/build-client";
 
 function Home({ data: { currentUser } }) {
-  console.log({ currentUser });
   return (
     <div>
-      <h1>Landing page</h1>
+      <h1>{currentUser ? "You are signed in" : "You are  NOT signed in"}</h1>
     </div>
   );
 }
@@ -21,9 +20,16 @@ export default Home;
 
 Home.getInitialProps = async (context) => {
   const client = buildClient(context);
-  const { data } = await client.request({
-    method: "GET",
-    url: "/api/users/currentuser",
-  });
-  return { data };
+  let resp;
+  try {
+    const { data } = await client.request({
+      method: "GET",
+      url: "/api/users/currentuser",
+    });
+    resp = data;
+  } catch (error) {
+    console.log({ Error: error.message });
+    resp = { currentUser: null };
+  }
+  return { data: resp };
 };
