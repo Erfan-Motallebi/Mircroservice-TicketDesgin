@@ -69,12 +69,3 @@ export default function SignUp() {
     </div>
   );
 }
-
-SignUp.getLayout = (page) => {
-  return (
-    <div>
-      <h1>Sign Up Header</h1>
-      {page}
-    </div>
-  );
-};
