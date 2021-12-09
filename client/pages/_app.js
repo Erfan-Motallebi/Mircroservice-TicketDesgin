@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import buildClient from "../helpers/build-client";
 import App from "next/app";
+import Header from "../components/Header";
 
 function MyApp({ Component, pageProps, currentUser }) {
   if (Component.getLayout) {
@@ -9,7 +10,7 @@ function MyApp({ Component, pageProps, currentUser }) {
   }
   return (
     <div>
-      <h1>Headers</h1>
+      <Header currentUser={currentUser} />
       <Component {...pageProps} />
     </div>
   );
@@ -28,19 +29,19 @@ MyApp.getInitialProps = async (appCtx) => {
   const { pageProps } = await App.getInitialProps(appCtx);
 
   const client = buildClient(appCtx.ctx);
-  let resp;
+  let currentUser;
   try {
     const { data } = await client.request({
       method: "GET",
       url: "/api/users/currentuser",
     });
-    resp = data;
+    ({ currentUser } = data);
   } catch (error) {
     console.log({ Error: error.message });
     resp = { currentUser: null };
   }
   // ! resolves to an object
-  return { pageProps, resp: { currentUser } };
+  return { pageProps, currentUser };
 };
 
 export default MyApp;
