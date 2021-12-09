@@ -3,7 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import buildClient from "../helpers/build-client";
 import App from "next/app";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, currentUser }) {
+  console.log({ currentUser });
   if (Component.getLayout) {
     return Component.getLayout(<Component {...pageProps} />);
   }
@@ -17,10 +18,15 @@ function MyApp({ Component, pageProps }) {
 MyApp.getInitialProps = async (appCtx) => {
   // console.log({ appCtx: Object.keys(appCtx) });
   // ! to other's getIinitalProps available acrross the entire app.
-  let pageProps = {};
-  if (appCtx.Component.getInitialProps) {
-    ({ pageProps } = await App.getInitialProps(appCtx));
-  }
+
+  // ! First Solution
+  // let pageProps = {};
+  // if (appCtx.Component.getInitialProps) {
+  //   pageProps = await appCtx.Component.getInitialProps(appCtx.ctx);
+  // }
+
+  // ! Second Solution
+  const { pageProps } = await App.getInitialProps(appCtx);
 
   const client = buildClient(appCtx.ctx);
   let resp;
@@ -35,7 +41,7 @@ MyApp.getInitialProps = async (appCtx) => {
     resp = { currentUser: null };
   }
   // ! resolves to an object
-  return { pageProps };
+  return { pageProps, resp: { currentUser } };
 };
 
 export default MyApp;
