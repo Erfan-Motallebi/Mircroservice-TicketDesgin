@@ -4,7 +4,6 @@ import buildClient from "../helpers/build-client";
 import App from "next/app";
 
 function MyApp({ Component, pageProps, currentUser }) {
-  console.log({ currentUser });
   if (Component.getLayout) {
     return Component.getLayout(<Component {...pageProps} />);
   }
