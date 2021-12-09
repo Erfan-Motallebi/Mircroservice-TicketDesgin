@@ -19,7 +19,6 @@ export default Home;
 // }
 
 Home.getInitialProps = async (context) => {
-  console.log("Page Context");
   const client = buildClient(context);
   let resp;
   try {
