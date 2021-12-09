@@ -17,7 +17,10 @@ function MyApp({ Component, pageProps }) {
 MyApp.getInitialProps = async (appCtx) => {
   // console.log({ appCtx: Object.keys(appCtx) });
   // ! to other's getIinitalProps available acrross the entire app.
-  const appProps = await App.getInitialProps(appCtx);
+  let pageProps = {};
+  if (appCtx.Component.getInitialProps) {
+    ({ pageProps } = await App.getInitialProps(appCtx));
+  }
 
   const client = buildClient(appCtx.ctx);
   let resp;
@@ -31,9 +34,8 @@ MyApp.getInitialProps = async (appCtx) => {
     console.log({ Error: error.message });
     resp = { currentUser: null };
   }
-
   // ! resolves to an object
-  return { ...appProps };
+  return { pageProps };
 };
 
 export default MyApp;
