@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps, currentUser }) {
     return Component.getLayout(<Component {...pageProps} />);
   }
   return (
-    <div>
+    <div className="container">
       <Header currentUser={currentUser} />
       <Component {...pageProps} />
     </div>
