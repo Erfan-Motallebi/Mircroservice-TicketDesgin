@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap-grid.min.css";
 import buildClient from "../helpers/build-client";
 import App from "next/app";
 import Header from "../components/Header";
@@ -9,7 +10,7 @@ function MyApp({ Component, pageProps, currentUser }) {
     return Component.getLayout(<Component {...pageProps} />);
   }
   return (
-    <div className="container">
+    <div className="">
       <Header currentUser={currentUser} />
       <Component {...pageProps} />
     </div>
@@ -29,7 +30,7 @@ MyApp.getInitialProps = async (appCtx) => {
   const { pageProps } = await App.getInitialProps(appCtx);
 
   const client = buildClient(appCtx.ctx);
-  let currentUser;
+  let currentUser = {};
   try {
     const { data } = await client.request({
       method: "GET",
@@ -38,7 +39,7 @@ MyApp.getInitialProps = async (appCtx) => {
     ({ currentUser } = data);
   } catch (error) {
     console.log({ Error: error.message });
-    resp = { currentUser: null };
+    currentUser = null;
   }
   // ! resolves to an object
   return { pageProps, currentUser };
