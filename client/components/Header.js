@@ -24,35 +24,39 @@ export default function Header({ currentUser }) {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div
-            className="collapse navbar-collapse "
+            className="collapse navbar-collapse d-flex justify-content-end"
             id="navbarSupportedContent"
           >
-            <ul className="navbar-nav d-flex justify-content-center">
+            <ul className="navbar-nav ">
               {!currentUser ? (
-                <li className="nav-item ">
-                  <Link href="/signin">
-                    <a
-                      className="nav-link text-primary"
-                      aria-current="page"
-                      href="#"
-                    >
-                      <button className="btn btn-success m-1">
-                        <span className="h5 text-info">Sign In</span>
-                      </button>
-                    </a>
-                  </Link>
-                  <Link href="/signup">
-                    <a
-                      className="nav-link text-primary"
-                      aria-current="page"
-                      href="#"
-                    >
-                      <button className="btn btn-success">
-                        <span className="h5 text-info">Sign Up</span>
-                      </button>
-                    </a>
-                  </Link>
-                </li>
+                <div className="d-flex justify-content-center align-items-center">
+                  <li className="nav-item ">
+                    <Link href="/signin">
+                      <a
+                        className="nav-link text-primary"
+                        aria-current="page"
+                        href="#"
+                      >
+                        <button className="btn btn-success m-1">
+                          <span className="h5 text-info">Sign In</span>
+                        </button>
+                      </a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/signup">
+                      <a
+                        className="nav-link text-primary"
+                        aria-current="page"
+                        href="#"
+                      >
+                        <button className="btn btn-success">
+                          <span className="h5 text-info">Sign Up</span>
+                        </button>
+                      </a>
+                    </Link>
+                  </li>
+                </div>
               ) : (
                 <li className="nav-item">
                   <Link href="/signout">
