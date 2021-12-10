@@ -11,7 +11,6 @@ export default function SignIn() {
     method: "POST",
     body: { email, password },
     onSuccess: ({ response }) => {
-      console.log({ response });
       Router.push("/");
     },
   });
