@@ -1,16 +1,24 @@
-import buildClient from "../../helpers/build-client";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import useRequest from "../../hooks/use-request";
 
-export default function Signout({ data }) {
-  console.log({ data });
-  return <div></div>;
-}
-
-Signout.getInitialProps = async (context) => {
-  const client = buildClient(context);
-  const { data } = await client.request({
-    url: "/api/users/signout",
+export default function Signout() {
+  const Router = useRouter();
+  const { doRequest, errors } = useRequest({
     method: "POST",
+    url: "/api/users/signout",
+    body: "",
+    onSuccess: () => {
+      Router.push("/");
+    },
   });
 
-  return { data };
-};
+  useEffect(() => {
+    const fetchSignOut = async () => {
+      await doRequest();
+    };
+    fetchSignOut();
+  }, []);
+
+  return <div></div>;
+}
