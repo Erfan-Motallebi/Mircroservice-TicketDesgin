@@ -1,12 +1,18 @@
+import Link from "next/link";
+
 export default function Header({ currentUser }) {
   return (
     <div className="">
       <nav className="navbar navbar-expand-lg navbar-light bg-secondary pt-3">
         <div className="container-fluid">
           <a className="navbar-brand text-info" href="#">
-            <button className="btn btn-info ">
-              <span className="h4">Ticket App</span>
-            </button>
+            <Link href="/">
+              <a>
+                <button className="btn btn-info ">
+                  <span className="h4">Ticket App</span>
+                </button>
+              </a>
+            </Link>
           </a>
           <button
             className="navbar-toggler"
@@ -31,9 +37,20 @@ export default function Header({ currentUser }) {
                     aria-current="page"
                     href="#"
                   >
-                    <button className="btn btn-success">
-                      <span className="h6">Sign In/Out</span>
-                    </button>
+                    <Link href="/signin">
+                      <a>
+                        <button className="btn btn-success m-1">
+                          <span className="h5 text-info">Sign In</span>
+                        </button>
+                      </a>
+                    </Link>
+                    <Link href="/signup">
+                      <a>
+                        <button className="btn btn-success">
+                          <span className="h5 text-info">Sign Up</span>
+                        </button>
+                      </a>
+                    </Link>
                   </a>
                 </li>
               ) : (
@@ -43,9 +60,13 @@ export default function Header({ currentUser }) {
                     aria-current="page"
                     href="#"
                   >
-                    <button className="btn btn-danger">
-                      <span className="h6">Sign Out</span>
-                    </button>
+                    <Link href="/signout">
+                      <a>
+                        <button className="btn btn-danger">
+                          <span className="h5 text-primary">Sign Out</span>
+                        </button>
+                      </a>
+                    </Link>
                   </a>
                 </li>
               )}
