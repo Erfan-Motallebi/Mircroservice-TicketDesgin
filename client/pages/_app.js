@@ -7,7 +7,9 @@ import Header from "../components/Header";
 
 function MyApp({ Component, pageProps, currentUser }) {
   if (Component.getLayout) {
-    return Component.getLayout(<Component {...pageProps} />);
+    return Component.getLayout(
+      <Component {...pageProps} currentUser={currentUser} />
+    );
   }
   return (
     <div className="">
