@@ -1,11 +1,9 @@
 import { Router, Response, Request } from "express";
 import { body } from "express-validator";
-import { BadRequestError } from "../errors/BadRequestError";
 import { User } from "../models/user.model";
 import { Password } from "../service/Password";
 import JWT from "jsonwebtoken";
-import { requestValidator } from "../middlewares/requestValidator";
-
+import { BadRequestError, requestValidator } from "@emticket/common";
 const router: Router = Router();
 
 router.post(

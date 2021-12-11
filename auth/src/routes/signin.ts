@@ -1,8 +1,7 @@
 import { Password } from "../service/Password";
 import { Router, Response, Request } from "express";
 import { check } from "express-validator";
-import { BadRequestError } from "../errors/BadRequestError";
-import { requestValidator } from "../middlewares/requestValidator";
+import { BadRequestError, requestValidator } from "@emticket/common";
 import JWT from "jsonwebtoken";
 import { User } from "../models/user.model";
 

@@ -1,6 +1,5 @@
 import { Router, Response, Request } from "express";
-import { sessionController } from "../middlewares/sessionController";
-import { authHandler } from "../middlewares/authHandler";
+import { sessionController, authHandler } from "@emticket/common";
 
 const router: Router = Router();
 

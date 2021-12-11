@@ -1,12 +1,11 @@
-import { errorHandler } from "./middlewares/errorHandler";
 import express, { Express, Request, Response } from "express";
 import "express-async-errors";
+import { NotFoundError, errorHandler } from "@emticket/common";
 
 // ! Auth Routers [ User ]
 import { currentUserRouter } from "./routes/currentUser";
 import { signInRouter } from "./routes/signin";
 import { signUpRouter } from "./routes/signup";
-import { NotFoundError } from "./errors/NotFoundError";
 import cookieSession from "cookie-session";
 import { signOutRouter } from "./routes/signout";
 
