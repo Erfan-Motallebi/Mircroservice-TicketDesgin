@@ -18,6 +18,8 @@ spec:
         - name: tickets
           image: erfanrider/tickets
           env:
+            - name: MONGO_URL
+              value: "mongodb://tickets-mongo-srv-cluster:27017/tickets"
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:

@@ -10,8 +10,12 @@ const startApp = async () => {
   if (!process.env.JWT_KEY) {
     throw new Error("JWT Token was not assigned to the Pod.");
   }
+
+  if (!process.env.MONGO_URL) {
+    throw new Error("Mongo DB URL must be defined");
+  }
   try {
-    await mongoose.connect("mongodb://auth-mongo-srv-cluster:27017", {
+    await mongoose.connect(process.env.MONGO_URL, {
       dbName: "auth",
       autoIndex: true,
     });
