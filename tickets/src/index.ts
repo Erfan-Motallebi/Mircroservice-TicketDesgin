@@ -15,13 +15,13 @@ const startApp = async () => {
       dbName: "auth",
       autoIndex: true,
     });
-    console.log("⚒️   [ + ] [ Auth ]  Database Connected ");
+    console.log("⚒️   [ + ] [ Tickets ] Database Connected ");
   } catch (error) {
     console.error(error);
   }
   app.listen(PORT, HOSTNAME, () => {
     console.log(
-      `⚒️   [ + ]  Auth Service is running on - http://${HOSTNAME}:${PORT} - `
+      `⚒️   [ + ]  Tickets Service is running on - http://${HOSTNAME}:${PORT} - `
     );
   });
 };
