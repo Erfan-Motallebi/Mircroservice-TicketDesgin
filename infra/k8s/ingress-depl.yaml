@@ -17,6 +17,13 @@ spec:
                 name: auth-srv-cluster
                 port:
                   number: 3001
+          - path: /api/tickets/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: tickets-srv-cluster
+                port:
+                  number: 3001
           - path: /?(.*)
             pathType: Prefix
             backend:

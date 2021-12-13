@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from "express";
 import "express-async-errors";
 import { NotFoundError, errorHandler } from "@emticket/common";
 import cookieSession from "cookie-session";
+import { createNewTicket } from "./routes/createNewTicket";
 
 // ! Tickets Routers [ User ]
 
@@ -22,6 +23,7 @@ app.use(
 );
 
 // ! Ticket Routes
+app.use(createNewTicket);
 
 // Error Handing
 app.use(async (req: Request, res: Response) => {
