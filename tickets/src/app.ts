@@ -2,9 +2,10 @@ import express, { Express, Request, Response } from "express";
 import "express-async-errors";
 import { NotFoundError, errorHandler } from "@emticket/common";
 import cookieSession from "cookie-session";
-import { createNewTicket } from "./routes/createNewTicket";
+import { authHandler } from "@emticket/common";
 
 // ! Tickets Routers [ User ]
+import { createNewTicket } from "./routes/newTicket";
 
 const app: Express = express();
 app.set("trust proxy", 1);
@@ -16,11 +17,12 @@ app.use(
   cookieSession({
     signed: false,
     // secure: true,
-    // ! Test Approaches
+    // ! Test-driven approaches
     secure: process.env.NODE_ENV !== "test",
     name: "Micro-Kubect",
   })
 );
+app.use(authHandler);
 
 // ! Ticket Routes
 app.use(createNewTicket);

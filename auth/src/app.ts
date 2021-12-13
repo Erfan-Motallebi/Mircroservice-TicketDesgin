@@ -1,12 +1,12 @@
 import express, { Express, Request, Response } from "express";
 import "express-async-errors";
 import { NotFoundError, errorHandler } from "@emticket/common";
+import cookieSession from "cookie-session";
 
 // ! Auth Routers [ User ]
 import { currentUserRouter } from "./routes/currentUser";
 import { signInRouter } from "./routes/signin";
 import { signUpRouter } from "./routes/signup";
-import cookieSession from "cookie-session";
 import { signOutRouter } from "./routes/signout";
 
 const app: Express = express();
