@@ -1,6 +1,10 @@
 import express, { Express, Request, Response } from "express";
 import "express-async-errors";
-import { NotFoundError, errorHandler } from "@emticket/common";
+import {
+  NotFoundError,
+  errorHandler,
+  sessionController,
+} from "@emticket/common";
 import cookieSession from "cookie-session";
 
 // ! Tickets Routers [ User ]
@@ -20,6 +24,8 @@ app.use(
     name: "Micro-Kubect",
   })
 );
+
+app.use(sessionController);
 
 // ! Ticket Routes
 app.use(createNewTicket);

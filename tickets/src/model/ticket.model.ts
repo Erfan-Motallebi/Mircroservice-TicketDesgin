@@ -8,7 +8,7 @@ interface ITicketAttr {
 
 interface ITicketDocument extends Document {
   title: string;
-  pricE: number;
+  price: number;
   userId: string;
   createdAt: Date;
   updatedAt: Date;
@@ -50,3 +50,5 @@ ticketSchema.statics.build = (attr: ITicketAttr) => {
 };
 
 const Ticket = model<ITicketDocument, ITicketModel>("Ticket", ticketSchema);
+
+export default Ticket;

@@ -1,6 +1,11 @@
-import { authHandler, requestValidator } from "@emticket/common";
+import {
+  authHandler,
+  requestValidator,
+  sessionController,
+} from "@emticket/common";
 import express, { Request, Response, Router } from "express";
 import { body } from "express-validator";
+import Ticket from "../model/ticket.model";
 
 const router: Router = express.Router();
 
@@ -17,7 +22,16 @@ router.post(
   ],
   requestValidator,
   async (req: Request, res: Response) => {
-    res.sendStatus(200);
+    const { title, price } = req.body;
+    const newTicket = Ticket.build({
+      title,
+      price,
+      userId: req.currentUser!.id,
+    });
+
+    await newTicket.save();
+
+    res.status(201).json(newTicket);
   }
 );
 
