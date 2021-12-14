@@ -36,7 +36,7 @@ MyApp.getInitialProps = async (appCtx) => {
   try {
     const { data } = await client.request({
       method: "GET",
-      url: "/api/users/currentuser",
+      url: "api/users/currentuser",
     });
     ({ currentUser } = data);
   } catch (error) {

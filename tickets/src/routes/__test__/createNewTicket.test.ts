@@ -24,3 +24,47 @@ describe("/app/tickets Route Test", () => {
     await Request(app).post("/api/tickets").send({}).expect(401);
   });
 });
+
+describe("/app/ticket Route Test", () => {
+  it("should throw an error when title  empty ", async () => {
+    await Request(app)
+      .post("/api/ticket")
+      .set("Cookie", global.cookieFaker())
+      .send({
+        title: "",
+        price: 500,
+      })
+      .expect(400);
+  });
+  it("should throw an error when title is not defined ", async () => {
+    await Request(app)
+      .post("/api/tickets")
+      .set("Cookie", global.cookieFaker())
+      .send({
+        price: 500,
+      })
+      .expect(400);
+  });
+});
+
+describe("/app/ticket Route Test", () => {
+  it("should throw an error when price is negative", async () => {
+    await Request(app)
+      .post("/api/tickets")
+      .set("Cookie", global.cookieFaker())
+      .send({
+        title: "New Ticket Created",
+        price: -3,
+      })
+      .expect(400);
+  });
+  it("should throw an error when price is not defined", async () => {
+    await Request(app)
+      .post("/api/tickets")
+      .set("Cookie", global.cookieFaker())
+      .send({
+        title: "New Ticket Created",
+      })
+      .expect(400);
+  });
+});
