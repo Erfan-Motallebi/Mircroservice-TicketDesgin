@@ -1,7 +1,15 @@
-import request from "supertest";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import { connect, connection } from "mongoose";
+import request from "supertest";
 import { app } from "../app";
+
+declare global {
+  namespace NodeJS {
+    interface Global {
+      cookieFaker(): string[];
+    }
+  }
+}
 
 let mongoMS: MongoMemoryServer;
 

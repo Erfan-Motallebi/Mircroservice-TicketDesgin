@@ -11,7 +11,10 @@ describe("/app/tickets Route Test", () => {
 
 describe("/app/tickets Route Test ", () => {
   it("Should not return statusCode [ 401 ] when the user is signed in ", async () => {
-    const response = await Request(app).post("/api/tickets").send({});
+    const response = await Request(app)
+      .post("/api/tickets")
+      .set("Cookie", global.cookieFaker())
+      .send({});
     expect(response.status).not.toEqual(401);
   });
 });

@@ -3,7 +3,6 @@ import { app } from "../../app";
 
 it("should return the current user after a successful signup", async () => {
   const cookie = await global.getCookie();
-
   const response = await request(app)
     .get("/api/users/currentuser")
     .set("Cookie", cookie)
