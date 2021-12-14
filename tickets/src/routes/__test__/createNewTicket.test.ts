@@ -34,7 +34,7 @@ describe("/app/ticket Route Test", () => {
         title: "",
         price: 500,
       })
-      .expect(400);
+      .expect(404);
   });
   it("should throw an error when title is not defined ", async () => {
     await Request(app)
@@ -43,7 +43,7 @@ describe("/app/ticket Route Test", () => {
       .send({
         price: 500,
       })
-      .expect(404);
+      .expect(400);
   });
 });
 
