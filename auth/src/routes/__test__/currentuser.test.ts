@@ -2,15 +2,7 @@ import request from "supertest";
 import { app } from "../../app";
 
 it("should return the current user after a successful signup", async () => {
-  const signUpResponse = await request(app)
-    .post("/api/users/signup")
-    .send({
-      email: "test@gmail.com",
-      password: "test123",
-    })
-    .expect(201);
-  // Cookie being set by the signup request handler
-  const cookie = signUpResponse.get("Set-Cookie");
+  const cookie = await global.getCookie();
 
   const response = await request(app)
     .get("/api/users/currentuser")

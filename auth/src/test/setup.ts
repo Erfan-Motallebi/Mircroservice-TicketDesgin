@@ -3,14 +3,6 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import { connect, connection } from "mongoose";
 import { app } from "../app";
 
-declare global {
-  namespace NodeJS {
-    interface Global {
-      getCookie(): Promise<string[]>;
-    }
-  }
-}
-
 let mongoMS: MongoMemoryServer;
 
 beforeAll(async () => {

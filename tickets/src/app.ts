@@ -6,7 +6,6 @@ import { authHandler } from "@emticket/common";
 
 // ! Tickets Routers [ User ]
 import { createNewTicket } from "./routes/newTicket";
-
 const app: Express = express();
 app.set("trust proxy", 1);
 
