@@ -16,13 +16,15 @@ router.post(
       .trim()
       .isEmail()
       .normalizeEmail()
-      .withMessage("Email is not valid. "),
+      .withMessage("Email is not valid. ")
+      .escape(),
     body("password")
       .notEmpty()
       .withMessage("Password Field is empty. fill it please")
       .trim()
       .isLength({ min: 4, max: 20 })
-      .withMessage("Password length is 4 - 20 characters"),
+      .withMessage("Password length is 4 - 20 characters")
+      .matches(/\d/),
   ],
   requestValidator,
   async (req: Request, res: Response) => {

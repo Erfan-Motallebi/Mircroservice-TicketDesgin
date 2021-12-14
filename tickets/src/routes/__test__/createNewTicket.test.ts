@@ -26,7 +26,7 @@ describe("/app/tickets Route Test", () => {
 });
 
 describe("/app/ticket Route Test", () => {
-  it("should throw an error when title  empty ", async () => {
+  it("should throw an error when title empty ", async () => {
     await Request(app)
       .post("/api/ticket")
       .set("Cookie", global.cookieFaker())
@@ -43,7 +43,7 @@ describe("/app/ticket Route Test", () => {
       .send({
         price: 500,
       })
-      .expect(400);
+      .expect(404);
   });
 });
 
