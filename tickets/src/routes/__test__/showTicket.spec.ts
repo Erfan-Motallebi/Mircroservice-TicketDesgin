@@ -7,7 +7,7 @@ describe("/app/ticket/:id", () => {
   });
 });
 
-describe("app/tickets/:id", () => {
+describe("/app/tickets/:id", () => {
   it("should return a new ticket if there is", async () => {
     let title = "Dubai Concert";
     let price = 540;
@@ -20,6 +20,12 @@ describe("app/tickets/:id", () => {
       })
       .expect(201);
 
-    await Request(app).get(`/api/tickets/${resp.body.id}`).send().expect(200);
+    const ticketResp = await Request(app)
+      .get(`/api/tickets/${resp.body.id}`)
+      .send()
+      .expect(200);
+
+    expect(ticketResp.body.ticket).toEqual(title);
+    expect(ticketResp.body.price).toEqual(price);
   });
 });
