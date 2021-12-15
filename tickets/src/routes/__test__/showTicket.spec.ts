@@ -24,8 +24,8 @@ describe("/app/tickets/:id", () => {
       .get(`/api/tickets/${resp.body.id}`)
       .send()
       .expect(200);
-
-    expect(ticketResp.body.ticket).toEqual(title);
+    console.log({ ticketResp: ticketResp.body });
+    expect(ticketResp.body.title).toEqual(title);
     expect(ticketResp.body.price).toEqual(price);
   });
 });
