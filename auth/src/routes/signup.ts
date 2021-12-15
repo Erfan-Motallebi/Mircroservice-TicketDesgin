@@ -1,6 +1,6 @@
 import { Router, Response, Request } from "express";
 import { body } from "express-validator";
-import { User } from "../models/user.model";
+import { IUserDocument, User } from "../models/user.model";
 import { Password } from "../service/Password";
 import JWT from "jsonwebtoken";
 import { BadRequestError, requestValidator } from "@emticket/common";
@@ -43,8 +43,8 @@ router.post(
 
     //#region Sync Approach
 
-    const hashedPassword = await Password.toHash(password);
-    const user = new User({ email, password: hashedPassword });
+    // const hashedPassword = await Password.toHash(password);
+    const user: IUserDocument = User.build({ email, password });
     await user.save();
 
     //#endregion

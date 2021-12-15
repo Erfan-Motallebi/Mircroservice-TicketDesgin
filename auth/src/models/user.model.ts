@@ -67,7 +67,7 @@ userSchema.static("build", function (attrs: IUserAttrs) {
   return new User(attrs);
 });
 
-userSchema.pre(
+userSchema.pre<IUserDocument>(
   "save",
   async function (this: IUserDocument, next): Promise<void> {
     console.log("Saving . . . ");
