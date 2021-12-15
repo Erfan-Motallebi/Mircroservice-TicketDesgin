@@ -1,9 +1,14 @@
+import mongoose from "mongoose";
 import Request from "supertest";
 import { app } from "../../app";
 
 describe("/app/ticket/:id", () => {
   it("should render a 404 for an unknown ticket", async () => {
-    await Request(app).post("/api/tickets/ksdjbfdsbfds").send().expect(404);
+    const MongooseFakeId = new mongoose.Types.ObjectId().toHexString();
+    await Request(app)
+      .post(`/api/tickets/${MongooseFakeId}`)
+      .send()
+      .expect(404);
   });
 });
 
@@ -24,7 +29,7 @@ describe("/app/tickets/:id", () => {
       .get(`/api/tickets/${resp.body.id}`)
       .send()
       .expect(200);
-    console.log({ ticketResp: ticketResp.body });
+
     expect(ticketResp.body.title).toEqual(title);
     expect(ticketResp.body.price).toEqual(price);
   });
