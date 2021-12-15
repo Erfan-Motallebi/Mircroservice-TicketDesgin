@@ -8,8 +8,9 @@ import {
 import cookieSession from "cookie-session";
 
 // ! Tickets Routers [ User ]
-import { createNewTicket } from "./routes/newTicket";
+import { createNewTicketRouter } from "./routes/newTicket";
 import { showTicketRouter } from "./routes/showTickets";
+import { getAllTicketsRouter } from "./routes/getTickets";
 const app: Express = express();
 app.set("trust proxy", 1);
 
@@ -29,8 +30,9 @@ app.use(
 app.use(sessionController);
 
 // ! Ticket Routes
-app.use(createNewTicket);
+app.use(createNewTicketRouter);
 app.use(showTicketRouter);
+app.use(getAllTicketsRouter);
 
 // Error Handing
 app.use(async (req: Request, res: Response) => {
