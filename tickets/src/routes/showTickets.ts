@@ -13,3 +13,5 @@ router.get("/api/tickets/:ticketId", async (req: Request, res: Response) => {
 
   res.status(200).json(ticket);
 });
+
+export { router as showTicketRouter };
