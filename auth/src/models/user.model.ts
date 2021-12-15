@@ -47,25 +47,18 @@ const userSchema = new Schema(
     toJSON: {
       transform(doc, ret) {
         ret.id = ret._id;
-        delete ret.password;
+        // delete ret.password;
         delete ret._id;
       },
     },
     versionKey: false,
   }
 );
-
-const User = model<IUserDocument, IUserModel>("User", userSchema);
-
 /**
  * @function build
  * @param {email: string, password: string}
  * @returns IUserDocument
  */
-
-userSchema.static("build", function (attrs: IUserAttrs) {
-  return new User(attrs);
-});
 
 userSchema.pre<IUserDocument>(
   "save",
@@ -79,5 +72,10 @@ userSchema.pre<IUserDocument>(
     next();
   }
 );
+userSchema.static("build", function (attrs: IUserAttrs) {
+  return new User(attrs);
+});
+
+const User = model<IUserDocument, IUserModel>("User", userSchema);
 
 export { User };
