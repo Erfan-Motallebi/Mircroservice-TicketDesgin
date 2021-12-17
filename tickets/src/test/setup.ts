@@ -1,6 +1,7 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import { connect, connection } from "mongoose";
 import JWT from "jsonwebtoken";
+import mongoose from "mongoose";
 declare global {
   namespace NodeJS {
     interface Global {
@@ -46,7 +47,7 @@ afterAll(async () => {
 global.cookieFaker = () => {
   // TODO Faking JWT Payload
   const payload = {
-    id: "12321jhvh",
+    id: new mongoose.Types.ObjectId().toHexString(),
     email: "eZipcoder@gmail.com",
   };
 

@@ -19,7 +19,7 @@ router.put(
       throw new NotFoundError();
     }
 
-    if (ticket.id !== req.currentUser!.id) {
+    if (ticket.userId !== req.currentUser!.id) {
       throw new NotAuthorizedUser();
     }
 
