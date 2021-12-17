@@ -44,3 +44,23 @@ describe("/api/tickets/:id [ PUT Request ] ", () => {
       .expect(401);
   });
 });
+
+describe("/api/tickets/:id [ PUT Request ] ", () => {
+  it("should update the ticket an get the result", async () => {
+    const cookie = global.cookieFaker();
+    const response = await Request(app)
+      .post(`/api/tickets`)
+      .set("Cookie", cookie)
+      .send({ title: "Title", price: 500 })
+      .expect(201);
+
+    const updateTickeResp = await Request(app)
+      .put(`/api/tickets/${response.body.id}`)
+      .set("Cookie", cookie)
+      .send({ title: "Title Updated", price: 510 })
+      .expect(200);
+
+    expect(updateTickeResp.body.title).toEqual("Title Updated");
+    expect(updateTickeResp.body.price).toEqual(510);
+  });
+});
