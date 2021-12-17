@@ -11,6 +11,7 @@ import cookieSession from "cookie-session";
 import { createNewTicketRouter } from "./routes/newTicket";
 import { showTicketRouter } from "./routes/showTickets";
 import { getAllTicketsRouter } from "./routes/getTickets";
+import { updateTicketRouter } from "./routes/updateTickets";
 const app: Express = express();
 app.set("trust proxy", 1);
 
@@ -33,6 +34,7 @@ app.use(sessionController);
 app.use(createNewTicketRouter);
 app.use(showTicketRouter);
 app.use(getAllTicketsRouter);
+app.use(updateTicketRouter);
 
 // Error Handing
 app.use(async (req: Request, res: Response) => {
