@@ -28,3 +28,19 @@ describe("/api/tickets/:id [ PUT Request ] ", () => {
       .expect(401);
   });
 });
+
+describe("/api/tickets/:id [ PUT Request ] ", () => {
+  it("should return 401 if the user is not the owner of the ticket", async () => {
+    const response = await Request(app)
+      .post(`/api/tickets`)
+      .set("Cookie", global.cookieFaker())
+      .send({ title: "Title", price: 500 })
+      .expect(201);
+
+    await Request(app)
+      .put(`/api/tickets/${response.body.id}`)
+      .set("Cookie", global.cookieFaker())
+      .send({ title: "Title Updated", price: 500 })
+      .expect(401);
+  });
+});

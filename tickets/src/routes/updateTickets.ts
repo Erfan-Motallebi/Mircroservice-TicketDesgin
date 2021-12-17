@@ -1,6 +1,10 @@
-import { authHandler, NotFoundError } from "@emticket/common";
+import {
+  authHandler,
+  NotAuthorizedUser,
+  NotFoundError,
+} from "@emticket/common";
 import express, { Router, Request, Response } from "express";
-import Ticket from "../model/ticket.model";
+import Ticket, { ITicketDocument } from "../model/ticket.model";
 
 const router: Router = express.Router();
 
@@ -9,11 +13,16 @@ router.put(
   authHandler,
   async (req: Request, res: Response) => {
     const { ticketId } = req.params;
-    const ticket = await Ticket.findById(ticketId);
+    const ticket = (await Ticket.findById(ticketId)) as ITicketDocument;
 
     if (!ticket) {
       throw new NotFoundError();
     }
+
+    if (ticket.id !== req.currentUser!.id) {
+      throw new NotAuthorizedUser();
+    }
+
     res.send(ticket);
   }
 );

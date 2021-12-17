@@ -6,7 +6,7 @@ interface ITicketAttr {
   userId: string;
 }
 
-interface ITicketDocument extends Document {
+export interface ITicketDocument extends Document {
   title: string;
   price: number;
   userId: string;
