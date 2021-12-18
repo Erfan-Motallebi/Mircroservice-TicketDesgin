@@ -1,4 +1,4 @@
-import { NotFoundError } from "./../../../common/src/errors/NotFoundError";
+import { NotFoundError } from "@emticket/common";
 import express, { Router, Request, Response } from "express";
 import Ticket from "../model/ticket.model";
 
