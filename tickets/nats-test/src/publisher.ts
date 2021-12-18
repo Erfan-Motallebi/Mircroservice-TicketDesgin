@@ -1,11 +1,13 @@
 import nats from "node-nats-streaming";
 
-const stan = nats.connect("ticketing", "efg", {
+console.clear();
+
+const stan = nats.connect("ticketing", "abc", {
   url: "http://localhost:4222",
 });
 
 stan.on("connect", () => {
-  console.log("Connected to the NATS - Client [ STAN ] ");
+  console.log("💥 Publisher Connected!");
 
   const msg = {
     id: 123,
@@ -14,6 +16,6 @@ stan.on("connect", () => {
   };
 
   stan.publish("ticket:created", JSON.stringify(msg), () => {
-    console.log("Data has published.[ Ticket-Created ]");
+    console.log("🚀 Publish Event");
   });
 });
