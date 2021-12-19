@@ -34,9 +34,9 @@ stan.on("connect", () => {
 });
 
 process.on("SIGINT", () => {
-  console.log("NATS STOPPED !");
+  stan.close();
 });
 
 process.on("SIGTERM", () => {
-  console.log("NATS STOPPED !");
+  stan.close();
 });
