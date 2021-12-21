@@ -54,7 +54,7 @@ abstract class Listener {
 
     subscription.on("message", (msg: Message) => {
       console.log(`
-        Message recieved: ${this.subject} ♨️ ${this.queryGroupName}
+        Message recieved: ${this.subject} ♨️  ${this.queryGroupName}
       `);
 
       const parseData = this.parseData(msg);
