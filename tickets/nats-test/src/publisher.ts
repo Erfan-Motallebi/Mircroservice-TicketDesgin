@@ -12,7 +12,7 @@ stan.on("connect", () => {
   const msg = {
     id: 123,
     title: "Publish title",
-    price: 0,
+    price: 10,
   };
 
   stan.publish("ticket:created", JSON.stringify(msg), () => {
