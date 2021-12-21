@@ -46,11 +46,13 @@ process.on("SIGTERM", () => {
 });
 
 abstract class Listener {
-  protected abstract queueGroupName: string;
-  protected abstract subject: string;
-  protected abstract onMessage(data: any, msg: Message): void;
+  abstract queryGroupName: string;
+  abstract subject: string;
+  abstract onMessage(data: any, msg: Message): void;
+
   private client: Stan;
   protected ackWait: number = 5 * 1000;
+
   constructor(client: Stan) {
     this.client = client;
   }
@@ -59,27 +61,29 @@ abstract class Listener {
     return this.client
       .subscriptionOptions()
       .setManualAckMode(true)
-      .setDeliverAllAvailable()
       .setAckWait(this.ackWait)
-      .setDurableName(this.queueGroupName);
+      .setDeliverAllAvailable()
+      .setDurableName(this.queryGroupName);
   }
 
-  listen() {
+  subscribe() {
     const subscription = this.client.subscribe(
       this.subject,
-      this.queueGroupName,
+      this.queryGroupName,
       this.subscriptionOptions()
     );
+
     subscription.on("message", (msg: Message) => {
       console.log(`
-      Message recieved: ${this.subject}  🖨️ ${this.queueGroupName} 
+        Message recieved: ${this.subject} ♨️ ${this.queryGroupName}
       `);
-      const parseData = this.parseMessage(msg);
+
+      const parseData = this.parseData(msg);
       this.onMessage(parseData, msg);
     });
   }
 
-  parseMessage(msg: Message) {
+  parseData(msg: Message) {
     const data = msg.getData();
     return typeof data === "string"
       ? JSON.parse(data)
