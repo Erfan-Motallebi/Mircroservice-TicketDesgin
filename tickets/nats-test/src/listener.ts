@@ -66,7 +66,7 @@ abstract class Listener {
       .setDurableName(this.queryGroupName);
   }
 
-  subscribe() {
+  listen() {
     const subscription = this.client.subscribe(
       this.subject,
       this.queryGroupName,
