@@ -10,31 +10,10 @@ const stan = nats.connect("ticketing", randomBytes(3).toString("hex"), {
 stan.on("connect", () => {
   console.log("💥 Listener Connected!");
 
-  stan.on("close", () => {
-    console.log("Listener is GONE!");
-    process.exit();
-  });
+  const ticketClassListener = new TicketClassListener(stan);
 
-  const options = stan
-    .subscriptionOptions()
-    .setManualAckMode(true)
-    .setDeliverAllAvailable()
-    .setDurableName("order-service");
-
-  const subscription = stan.subscribe(
-    "ticket:created",
-    "payment-service-QGroup",
-    options
-  );
-
-  subscription.on("message", (msg: Message) => {
-    console.log("🚀 Message recieved ");
-    console.log(`
-    Recieved Data with Seq#: ${msg.getSequence()},
-    Data: ${msg.getData()}
-    `);
-    msg.ack();
-  });
+  ticketClassListener.close("Successfully Closed the Listener");
+  ticketClassListener.listen();
 });
 
 process.on("SIGINT", () => {
@@ -46,9 +25,9 @@ process.on("SIGTERM", () => {
 });
 
 abstract class Listener {
-  abstract queryGroupName: string;
-  abstract subject: string;
-  abstract onMessage(data: any, msg: Message): void;
+  protected abstract queryGroupName: string;
+  protected abstract subject: string;
+  protected abstract onMessage(data: any, msg: Message): void;
 
   private client: Stan;
   protected ackWait: number = 5 * 1000;
@@ -88,5 +67,23 @@ abstract class Listener {
     return typeof data === "string"
       ? JSON.parse(data)
       : JSON.parse(data.toString("utf-8"));
+  }
+
+  close(msg: string) {
+    this.client.on("close", () => {
+      console.log("💥 " + msg);
+      process.exit();
+    });
+  }
+}
+
+class TicketClassListener extends Listener {
+  subject = "ticket:created";
+  queryGroupName = "ticket-service";
+  onMessage(data: any, msg: Message) {
+    console.log("Event Data: " + data);
+    // TODO: Do whatever you want on Data recieved
+
+    msg.ack();
   }
 }
