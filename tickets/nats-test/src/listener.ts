@@ -23,7 +23,7 @@ stan.on("connect", () => {
 
   const subscription = stan.subscribe(
     "ticket:created",
-    // "payment-service-QGroup",
+    "payment-service-QGroup",
     options
   );
 
