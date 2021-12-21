@@ -48,7 +48,7 @@ process.on("SIGTERM", () => {
 abstract class Listener {
   protected abstract queueGroupName: string;
   protected abstract subject: string;
-
+  protected abstract onMessage(data: any, msg: Message): void;
   private client: Stan;
   protected ackWait: number = 5 * 1000;
   constructor(client: Stan) {
@@ -74,6 +74,15 @@ abstract class Listener {
       console.log(`
       Message recieved: ${this.subject}  🖨️ ${this.queueGroupName} 
       `);
+      const parseData = this.parseMessage(msg);
+      this.onMessage(parseData, msg);
     });
+  }
+
+  parseMessage(msg: Message) {
+    const data = msg.getData();
+    return typeof data === "string"
+      ? JSON.parse(data)
+      : JSON.parse(data.toString("utf-8"));
   }
 }
