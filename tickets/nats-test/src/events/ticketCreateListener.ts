@@ -9,7 +9,7 @@ import { IEvent, ITicketCreatedEvent } from "./types";
 //   price: number;
 // }
 
-export class TicketClassListener extends Listener<IEvent<ITicketCreatedEvent>> {
+export class TicketClassListener extends Listener<IEvent> {
   subject: Subjects = Subjects.TicketCreated;
   queryGroupName = "ticket-service";
   onMessage(data: ITicketCreatedEvent, msg: Message) {

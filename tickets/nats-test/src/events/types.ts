@@ -17,7 +17,7 @@ export interface ITicketCreatedEvent {
 //   };
 // }
 
-export interface IEvent<T> {
+export interface IEvent {
   subject: Subjects;
-  data: T;
+  data: any;
 }

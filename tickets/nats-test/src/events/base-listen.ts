@@ -1,7 +1,7 @@
 import { Message, Stan } from "node-nats-streaming";
 import { IEvent, ITicketCreatedEvent } from "./types";
 
-export abstract class Listener<K extends IEvent<ITicketCreatedEvent>> {
+export abstract class Listener<K extends IEvent> {
   protected abstract queryGroupName: string;
   protected abstract subject: K["subject"];
   protected abstract onMessage(data: K["data"], msg: Message): void;
