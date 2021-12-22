@@ -1,9 +1,10 @@
 import { Message, Stan } from "node-nats-streaming";
+import { Subjects } from "./subjects";
 
-export abstract class Listener {
+export abstract class Listener<T, K extends Subjects> {
   protected abstract queryGroupName: string;
-  protected abstract subject: string;
-  protected abstract onMessage(data: any, msg: Message): void;
+  protected abstract subject: K;
+  protected abstract onMessage(data: T, msg: Message): void;
 
   private client: Stan;
   protected ackWait: number = 5 * 1000;
@@ -38,7 +39,7 @@ export abstract class Listener {
     });
   }
 
-  parseData(msg: Message) {
+  parseData(msg: Message): T {
     const data = msg.getData();
     return typeof data === "string"
       ? JSON.parse(data)

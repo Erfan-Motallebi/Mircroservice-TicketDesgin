@@ -1,13 +1,19 @@
 import { Message } from "node-nats-streaming";
 import { Listener } from "./base-listen";
+import { Subjects } from "./subjects";
 
-export class TicketClassListener extends Listener {
-  subject = "ticket:created";
+interface ITicketCreated {
+  id: number;
+  title: string;
+  price: number;
+}
+
+export class TicketClassListener extends Listener<ITicketCreated, Subjects> {
+  subject = Subjects.TicketCreated;
   queryGroupName = "ticket-service";
-  onMessage(data: any, msg: Message) {
+  onMessage(data: ITicketCreated, msg: Message) {
     console.log("Event Data: " + data);
     // TODO: Do whatever you want on Data recieved
-
     msg.ack();
   }
 }
